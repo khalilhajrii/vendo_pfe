@@ -1,0 +1,75 @@
+.logo{
+    width: 40px;
+}
+
+
+.bg-light {
+    background-color: #7d4a5300!important;
+    transition: 0.3s;
+
+}
+
+
+.my-lg-0 button{
+    margin: 10px;
+    border: 0;
+    color: #ffffff;
+
+}
+
+.my-lg-0 button:hover{
+    background-color:#0c8e34 ;
+    border-radius: 5px;
+    transition: 0.6s;
+}
+
+.navbar-collapse a{
+    color: #ffffff;
+}
+
+
+
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+}
+
+.navbar-light .navbar-brand {
+    color: #ffffff;
+}
+
+.bg-light.scrolled {
+    background-color: #0c8e34!important;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    border-radius: 20px;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(255, 255, 255);
+    border-bottom: 3px solid #0c8e34;
+    transition: 0.3s;
+
+}
+
+
+
+
+
+

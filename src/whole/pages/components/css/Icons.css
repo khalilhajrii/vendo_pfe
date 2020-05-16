@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding:0;
+    font-family: sans-serif;
+}
+
+.main-container{
+    width: 100%;
+    text-align: center;
+    background: #ffffff;
+
+}
+
+.sub-container{
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+
+
+.testimonals{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 1;
+}
+.person img {
+    width: 100px;
+}
+
+.person{
+    width: 300px;
+    margin: 50px;
+    box-sizing: border-box;
+  
+}
+
+.person .name{
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #000000;
+}
+
+
+@media screen and (max-width: 980px){
+    .person{
+        max-width: 45%;
+    }
+}
+
+@media screen and (max-width: 660px){
+    .person{
+        max-width: 100%;
+    }
+}
+
+
+

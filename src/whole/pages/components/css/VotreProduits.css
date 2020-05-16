@@ -1,0 +1,22 @@
+.Product-pic{
+    width: 60px;
+}
+
+table  .btn-success{
+        color: #fff;
+        background-color: #28a745;
+        width: 100px;
+        float: right;
+        margin: 20px;
+        }
+
+.modal-content p{
+    margin: 30px;
+    font-size: 18px;
+    
+}
+
+table .btn-primary{
+    background-color: #28a745;
+    border: none;
+}
