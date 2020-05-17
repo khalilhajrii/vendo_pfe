@@ -3,6 +3,7 @@ import "./css/Product.css";
 import NavBar from "../sharedcomponents/NavBar";
 import Footer from ".././sharedcomponents/Footer";
 import { Link } from "react-router-dom";
+import AddProduct from "./AddProduct";
 
 const Product = () => {
   const [products, setproducts] = useState([]);
@@ -11,15 +12,7 @@ const Product = () => {
     fetch("/produit")
       .then((response) => response.json())
       .then((data) => setproducts(data));
-  }, []);
-
-  const update = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    this.setState({
-      [name]: value,
-    });
-  };
+  }, [products]);
 
   const displayLogin = (e) => {
     e.preventDefault();
@@ -54,6 +47,7 @@ const Product = () => {
         >
           Ajouter un produit
         </button>
+        <AddProduct />
         {products.map((product) => (
           <div className="subcontainer">
             <div className="produit">
