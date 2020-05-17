@@ -2,8 +2,17 @@ import React from "react";
 import "./css/Productdetails.css";
 import NavBar from "../sharedcomponents/NavBar";
 import Footer from "../sharedcomponents/Footer";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Productdetails = () => {
+  const [products, setproducts] = useState([]);
+  useEffect(() => {
+    fetch("/produit")
+      .then((response) => response.json())
+      .then((data) => setproducts(data));
+  }, []);
+  console.log(products);
   return (
     <div>
       <NavBar />
@@ -43,76 +52,60 @@ const Productdetails = () => {
                 />
               </div>
             </div>
+            {products.slice(0, 1).map(
+              (product) =>
+                product.Categorie == "test" && (
+                  <div>
+                    <h2 className="mb-5">Description</h2>
+                    <p>{product.Description}</p>
+                    <div className="product-comments">
+                      <form action className="form-inline mb-5">
+                        <textarea
+                          name
+                          id
+                          cols={50}
+                          rows={2}
+                          className="form-control mr-4"
+                          placeholder="Ecrire un commentaire..."
+                          defaultValue={""}
+                        />
+                        <button className="btn btn-lg btn-primary">
+                          Commenter
+                        </button>
+                      </form>
+                      <ol className="list-unstyled last-questions-list">
+                        {product.commentaires.map((comment) => (
+                          <li>
+                            <i className="fa fa-comment" />{" "}
+                            <span>
+                              {comment.Nom}: {comment.Description}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                    <div className="product-payment-details">
+                      <h4 className="product-title mb-2">{product.Nom_produit}</h4>
+                      <h2 className="product-price display-4">{product.Prix} DT</h2>
+                      <h4 className="product-title mb-2">
+                        Catégorie: {product.Categorie}{" "}
+                      </h4>
 
-            {/*Description et partie des commentaires*/}
-
-            <h2 className="mb-5">Description</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit
-              nemo reiciendis quisquam a quis delectus consectetur ipsa eligendi
-              aliquam earum in vitae voluptate ratione fugiat similique nostrum
-              debitis dolor, ipsam quo officiis quas necessitatibus? Magnam
-              eveniet iure, eligendi est ullam consectetur repellat quis
-              doloremque ad perspiciatis assumenda ducimus distinctio quaerat
-              sit repudiandae illo praesentium modi dolor. Veritatis aperiam,
-              minima natus assumenda ipsum voluptatem reprehenderit? Possimus
-              nobis, voluptate, blanditiis, temporibus ad nostrum corrupti quos
-              corporis voluptas tempora aliquid magnam quia voluptatem rerum
-              odit fugiat facere necessitatibus adipisci sunt. Veritatis
-              architecto, perferendis labore sit nobis eaque perspiciatis et
-              iusto, in doloribus est!
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vel
-              reiciendis voluptatibus assumenda tempora vitae aut adipisci
-              harum, corporis in id perferendis quia repellat reprehenderit
-              temporibus aspernatur ab ullam magni error consectetur, facilis
-              inventore ipsum, veniam voluptas. Error laboriosam atque quisquam
-              facere esse repellat consectetur quos eum, quaerat blanditiis
-              saepe?
-            </p>
-
-            <div className="product-comments">
-              <form action className="form-inline mb-5">
-                <textarea
-                  name
-                  id
-                  cols={50}
-                  rows={2}
-                  className="form-control mr-4"
-                  placeholder="Ecrire un commentaire..."
-                  defaultValue={""}
-                />
-                <button className="btn btn-lg btn-primary">Commenter</button>
-              </form>
-              <ol className="list-unstyled last-questions-list">
-                <li>
-                  <i className="fa fa-comment" />{" "}
-                  <span>Hello david, can i pay with credit card?</span>
-                </li>
-                <li>
-                  <i className="fa fa-comment" />{" "}
-                  <span>can i send it to another address?</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div className="product-payment-details">
-            <h4 className="product-title mb-2">Iphone 7 </h4>
-            <h2 className="product-price display-4">700 DT</h2>
-            <h4 className="product-title mb-2">Catégorie: Téléphone </h4>
-
-            <p className="mb-0">
-              <i className="fa fa-map" /> Tunis
-            </p>
-            <button className="btn btn-primary btn-lg btn-block">
-              Contacter
-            </button>
+                      <p className="mb-0">
+                        <i className="fa fa-map" /> {product.Emplacement}
+                      </p>
+                      <button className="btn btn-primary btn-lg btn-block">
+                        Contacter
+                      </button>
+                    </div>
+                  </div>
+                )
+            )}
           </div>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };
