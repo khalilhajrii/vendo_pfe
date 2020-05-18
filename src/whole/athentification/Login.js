@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import NavBar from "../sharedcomponents/NavBar";
 import Footer from "../sharedcomponents/Footer";
 import "./css/Login.css";
@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { FormFeedback, FormGroup, Input, Button, Alert } from "reactstrap";
 import Axios from "axios";
+import { isAuthenticated } from "./IsAuthenticated";
 
 const LoginPage = () => {
   const [values, setValues] = useState({
@@ -23,10 +24,15 @@ const LoginPage = () => {
     event.preventDefault();
     Axios.post(`/login`, values)
       .then((res) => {
-        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem("user", JSON.stringify(res.data));
+        console.log(res)
       })
       .catch((err) => [console.log(err)]);
   };
+
+  if (isAuthenticated()) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <body className="body">
@@ -78,13 +84,13 @@ const LoginPage = () => {
                     Remember me
                   </label>
                 </div>
-
-                <div className="button">
-                  <Button className="btn" type="submit">
-                    Connexion
-                  </Button>
-                </div>
-
+                {/* <Link to="/"> */}
+                  <div className="button">
+                    <Button className="btn" type="submit">
+                      Connexion
+                    </Button>
+                  </div>
+                {/* </Link> */}
                 <div className="return">
                   <Link to="/recuperer mot de passe">
                     <a href="heyy">Mot de passe oubliée ?</a>

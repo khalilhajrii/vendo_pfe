@@ -48,7 +48,7 @@ const Product = () => {
           Ajouter un produit
         </button>
         <AddProduct />
-        {products.map((product) => (
+        {products.slice(0).reverse().map((product) => (
           <div className="subcontainer">
             <div className="produit">
               <div className="image">
