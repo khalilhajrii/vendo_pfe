@@ -9,7 +9,7 @@ const AddProduct = () => {
     Categorie: "",
     Emplacement: "",
     commentaires: [],
-    owner: JSON.parse(localStorage.getItem("user"))._id,
+    owner: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user"))._id : 'test',
   });
 
   const handleChange = (name) => (event) => {

@@ -7,7 +7,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { FormFeedback, FormGroup, Input, Button, Alert } from "reactstrap";
 import Axios from "axios";
-import { isAuthenticated } from "./IsAuthenticated";
 
 const LoginPage = () => {
   const [values, setValues] = useState({
@@ -28,11 +27,10 @@ const LoginPage = () => {
         console.log(res)
       })
       .catch((err) => [console.log(err)]);
+      setTimeout(() => {
+      window.location.href = '/'
+      }, 300);
   };
-
-  if (isAuthenticated()) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <body className="body">
@@ -84,13 +82,11 @@ const LoginPage = () => {
                     Remember me
                   </label>
                 </div>
-                {/* <Link to="/"> */}
                   <div className="button">
                     <Button className="btn" type="submit">
                       Connexion
                     </Button>
                   </div>
-                {/* </Link> */}
                 <div className="return">
                   <Link to="/recuperer mot de passe">
                     <a href="heyy">Mot de passe oubliée ?</a>

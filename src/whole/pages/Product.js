@@ -4,6 +4,7 @@ import NavBar from "../sharedcomponents/NavBar";
 import Footer from ".././sharedcomponents/Footer";
 import { Link } from "react-router-dom";
 import AddProduct from "./AddProduct";
+import { isAuthenticated } from "../athentification/IsAuthenticated";
 
 const Product = () => {
   const [products, setproducts] = useState([]);
@@ -31,51 +32,54 @@ const Product = () => {
   };
 
   const filterbyproduct = (name) => {
-    return name._id
-  }
+    return name._id;
+  };
 
   return (
     <div className="tout">
       <NavBar />
       <img src="/images/produit.jpg" alt="background" className="logpic" />
       <div className="maincontainer">
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target=".bd-example-modal-lg"
-        >
-          Ajouter un produit
-        </button>
+        {isAuthenticated() && (
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+          >
+            Ajouter un produit
+          </button>
+        )}
         <AddProduct />
-        {products.slice(0).reverse().map((product) => (
-          <div className="subcontainer">
-            <div className="produit">
-              <div className="image">
-                <img
-                  src="https://cdn.pocket-lint.com/r/s/1200x/assets/images/144018-phones-review-review-huawei-p20-pro-review-2018-image1-sr0lwmedsp.jpg"
-                  alt="produit"
-                ></img>
-                <div className="name">{product.Nom_produit}</div>
-                <div className="desc">
-                  {product.Description}
-                </div>
-                <div className="buttons">
-                  <Link to='/details'>
-                    <button
-                    id={product}
-                      className="btn btn-outline-success my-2 my-sm-0"
-                      type="submit"
-                      onClick={() => filterbyproduct(product)}
-                    >
-                      Voir plus
-                    </button>{" "}
+        {products
+          .slice(0)
+          .reverse()
+          .map((product) => (
+            <div className="subcontainer">
+              <div className="produit">
+                <div className="image">
+                  <img
+                    src="https://cdn.pocket-lint.com/r/s/1200x/assets/images/144018-phones-review-review-huawei-p20-pro-review-2018-image1-sr0lwmedsp.jpg"
+                    alt="produit"
+                  ></img>
+                  <div className="name">{product.Nom_produit}</div>
+                  <div className="desc">{product.Description}</div>
+                  <div className="buttons">
+                    <Link to={isAuthenticated() ? "/details" : "/login"}>
+                      <button
+                        id={product}
+                        className="btn btn-outline-success my-2 my-sm-0"
+                        type="submit"
+                        onClick={() => filterbyproduct(product)}
+                      >
+                        Voir plus
+                      </button>{" "}
                     </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <Footer />
     </div>

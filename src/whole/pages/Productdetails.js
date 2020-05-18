@@ -5,6 +5,7 @@ import Footer from "../sharedcomponents/Footer";
 import { useEffect } from "react";
 import { useState } from "react";
 import Axios from "axios";
+import { isAuthenticated } from "../athentification/IsAuthenticated";
 
 const Productdetails = () => {
   const [products, setproducts] = useState([]);
@@ -28,7 +29,9 @@ const Productdetails = () => {
         Description: "",
       },
     ],
-    owner: JSON.parse(localStorage.getItem("user"))._id,
+    owner: JSON.parse(localStorage.getItem("user"))
+      ? JSON.parse(localStorage.getItem("user"))._id
+      : "test",
   });
 
   const handleChange = (name) => (event) => {
@@ -47,6 +50,11 @@ const Productdetails = () => {
 
   const filterbyproduct = (name) => {
     setproduct(name);
+  };
+
+  const checkIfauth = () => {
+    if (isAuthenticated) return true;
+    else return false;
   };
 
   return (
@@ -128,9 +136,7 @@ const Productdetails = () => {
                       {product.commentaires.map((comment) => (
                         <li>
                           <i className="fa fa-comment" />{" "}
-                          <span>
-                            {comment.Description}
-                          </span>
+                          <span>{comment.Description}</span>
                         </li>
                       ))}
                     </ol>

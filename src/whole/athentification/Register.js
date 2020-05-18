@@ -9,13 +9,12 @@ import { FormFeedback, FormGroup, Input, Button, Alert } from "reactstrap";
 import Axios from "axios";
 
 const Register = () => {
-
   const [values, setValues] = useState({
     Nom: "",
     Prenom: "",
     Email: "",
     Password: "",
-    Numero: '',
+    Numero: "",
     Adresse: "",
     Sexe: "",
     Naissance: "",
@@ -33,6 +32,9 @@ const Register = () => {
         console.log(res);
       })
       .catch((err) => [console.log(err)]);
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 300);
   };
 
   return (
@@ -116,7 +118,12 @@ const Register = () => {
                   </FormGroup>
 
                   <FormGroup>
-                    <Input type="select" onChange={handleChange("Sexe")} className="sexe" name="sexe">
+                    <Input
+                      type="select"
+                      onChange={handleChange("Sexe")}
+                      className="sexe"
+                      name="sexe"
+                    >
                       <option>Votre sexe ...</option>
                       <option>Homme</option>
                       <option>Femme</option>
@@ -124,7 +131,12 @@ const Register = () => {
                   </FormGroup>
 
                   <FormGroup>
-                    <Input type="select" onChange={handleChange("Naissance")} className="naissance" name="annee">
+                    <Input
+                      type="select"
+                      onChange={handleChange("Naissance")}
+                      className="naissance"
+                      name="annee"
+                    >
                       <option>Votre date de naissance ...</option>
                       <option>1998</option>
                       <option>1999</option>
