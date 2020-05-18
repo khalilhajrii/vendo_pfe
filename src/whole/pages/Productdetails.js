@@ -10,12 +10,6 @@ import { isAuthenticated } from "../athentification/IsAuthenticated";
 const Productdetails = () => {
   const [products, setproducts] = useState([]);
 
-  useEffect(() => {
-    fetch("/produit")
-      .then((response) => response.json())
-      .then((data) => setproducts(data));
-  }, [products]);
-
   const [product, setproduct] = useState();
 
   const [values, setValues] = useState({
@@ -50,6 +44,7 @@ const Productdetails = () => {
 
   const filterbyproduct = (name) => {
     setproduct(name);
+    localStorage.setItem('filteredProduct', name);
   };
 
   const checkIfauth = () => {
@@ -65,38 +60,6 @@ const Productdetails = () => {
       <div className="content10">
         <div className="card-body store-body">
           <div className="product-info">
-            {/* <div className="product-gallery">
-              <div className="product-gallery-thumbnails">
-                <ol className="thumbnails-list list-unstyled">
-                  <li>
-                    <img
-                      src="https://cdn.vox-cdn.com/thumbor/E8c5U6A_RrsyiwRANmcCLNE2dzc=/0x0:2040x1360/1400x933/filters:focal(860x560:1186x886):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/55855309/akrales_190913_3628_0277.19.jpg"
-                      alt=""
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src="https://www.popsci.com/resizer/6iA2dK-qrizE_TrGloIM5mYz5Mw=/760x570/filters:focal(600x450:601x451)/arc-anglerfish-arc2-prod-bonnier.s3.amazonaws.com/public/VYHDQWEYQJMUBJTKNV4MMC5KMU.jpg"
-                      alt=""
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MRXK2_AV5_GEO_GB?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1549066044881"
-                      alt=""
-                    />
-                  </li>
-                </ol>
-              </div>
-              <div className="product-gallery-featured">
-                <img
-                  src="https://cdn.vox-cdn.com/thumbor/E8c5U6A_RrsyiwRANmcCLNE2dzc=/0x0:2040x1360/1400x933/filters:focal(860x560:1186x886):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/55855309/akrales_190913_3628_0277.19.jpg"
-                  alt=""
-                  className="img-produit"
-                />
-              </div>
-            </div> */}
-            {products.map((product) => (
               <div
                 className="container"
                 style={{ display: "flex", flexDirection: "row" }}
@@ -110,7 +73,7 @@ const Productdetails = () => {
                     />
                   </div>
                   <h2 className="mb-5">Description</h2>
-                  <p>{product.Description}</p>
+                  <p>{JSON.parse(localStorage.getItem("filteredProduct")).Description}</p>
                   <div className="product-comments">
                     <form
                       onSubmit={clickSubmit}
@@ -133,31 +96,30 @@ const Productdetails = () => {
                       </button>
                     </form>
                     <ol className="list-unstyled last-questions-list">
-                      {product.commentaires.map((comment) => (
+                      {/* {product.commentaires.map((comment) => (
                         <li>
                           <i className="fa fa-comment" />{" "}
                           <span>{comment.Description}</span>
                         </li>
-                      ))}
+                      ))} */}
                     </ol>
                   </div>
                 </div>
                 <div className="product-payment-details">
-                  <h4 className="product-title mb-2">{product.Nom_produit}</h4>
-                  <h2 className="product-price display-4">{product.Prix} DT</h2>
+                  <h4 className="product-title mb-2">{JSON.parse(localStorage.getItem("filteredProduct")).Nom_produit}</h4>
+                  <h2 className="product-price display-4">{JSON.parse(localStorage.getItem("filteredProduct")).Prix} DT</h2>
                   <h4 className="product-title mb-2">
-                    Catégorie: {product.Categorie}{" "}
+                    Catégorie: {JSON.parse(localStorage.getItem("filteredProduct")).Categorie}{" "}
                   </h4>
 
                   <p className="mb-0">
-                    <i className="fa fa-map" /> {product.Emplacement}
+                    <i className="fa fa-map" /> {JSON.parse(localStorage.getItem("filteredProduct")).Emplacement}
                   </p>
                   <button className="btn btn-primary btn-lg btn-block">
                     Contacter
                   </button>
                 </div>
               </div>
-            ))}
           </div>
         </div>
 

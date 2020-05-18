@@ -32,6 +32,7 @@ const Product = () => {
   };
 
   const filterbyproduct = (name) => {
+    localStorage.setItem("filteredProduct", JSON.stringify(name));
     return name._id;
   };
 
@@ -51,12 +52,13 @@ const Product = () => {
           </button>
         )}
         <AddProduct />
-        {products
-          .slice(0)
-          .reverse()
-          .map((product) => (
-            <div className="subcontainer">
-              <div className="produit">
+
+        <div className="subcontainer">
+          <div className="produit">
+            {products
+              .slice(0)
+              .reverse()
+              .map((product) => (
                 <div className="image">
                   <img
                     src="https://cdn.pocket-lint.com/r/s/1200x/assets/images/144018-phones-review-review-huawei-p20-pro-review-2018-image1-sr0lwmedsp.jpg"
@@ -77,9 +79,9 @@ const Product = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

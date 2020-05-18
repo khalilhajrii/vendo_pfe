@@ -2,6 +2,8 @@ import React, { Component, useState } from "react";
 import axios from "axios";
 
 const AddProduct = () => {
+  const [product, setproduct] = useState();
+
   const [values, setValues] = useState({
     Nom_produit: "",
     Prix: 0,

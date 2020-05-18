@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./css/Demandes.css";
 import NavBar from "../sharedcomponents/NavBar";
 import Footer from "../sharedcomponents/Footer";
 import { isAuthenticated } from "../athentification/IsAuthenticated";
-
+import AddDemande from "./AddDemande";
 const Demandes = () => {
+  const [demandes, setdemandes] = useState([]);
+
+  useEffect(() => {
+    fetch("/demande")
+      .then((response) => response.json())
+      .then((data) => setdemandes(data));
+  }, [demandes]);
+  
   return (
     <div className="demandes">
       <NavBar />
       <img src="/images/demandes.jpg" alt="background" className="logpic" />
-      {/*partie d'ajout d'une annonce*/}
 
       {isAuthenticated() && (
         <button
@@ -21,111 +28,31 @@ const Demandes = () => {
           Ajouter une demande
         </button>
       )}
-
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div className="content7">
-              <form>
-                <div className="demandes-box">
-                  <h1>Ajouter votre demandes</h1>
-
-                  <div className="form-group">
-                    <textarea
-                      className="Descriptiondemande"
-                      id="exampleInputdesc"
-                      name="description"
-                      placeholder="Description..."
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="Prixdemande"
-                      id="exampleInputprix"
-                      name="prix"
-                      placeholder="Prix..."
-                      required
-                    />
-                  </div>
-
-                  <input
-                    type="submit"
-                    className="btn btn-success"
-                    value="Ajouter le produit"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <AddDemande />
       <div className="content5">
-        <div className="media">
-          <img
-            src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-512.png"
-            className="mr-3"
-            alt="..."
-          />
-          <div className="media-body">
-            <h5 className="mt-0">Khalil hajri</h5>
-            <p>Im looking for samsung galaxy s 9 </p>
-            <p>Prix : 100 DT</p>
-            <div class="card-footer text-muted">
-              2 days ago
-              <button type="button" className="btn btn-success">
-                Contacter
-              </button>
+        {demandes
+          .slice(0)
+          .reverse()
+          .map((demande) => (
+            <div className="media">
+              <img
+                src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-512.png"
+                className="mr-3"
+                alt="..."
+              />
+              <div className="media-body">
+                <h5 className="mt-0">{JSON.parse(localStorage.getItem("user")).Nom}</h5>
+                <p>{demande.Description}</p>
+                <p>Prix : {demande.Prix}</p>
+                <div class="card-footer text-muted">
+                  {demande.createdAt}
+                  <button type="button" className="btn btn-success">
+                    Contacter
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="media">
-          <img
-            src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-512.png"
-            className="mr-3"
-            alt="..."
-          />
-          <div className="media-body">
-            <h5 className="mt-0">Khalil hajri</h5>
-            <p>Im looking for samsung galaxy s 9 </p>
-            <p>Prix : 100 DT</p>
-            <div class="card-footer text-muted">
-              2 days ago
-              <button type="button" className="btn btn-success">
-                Contacter
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="media">
-          <img
-            src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-512.png"
-            className="mr-3"
-            alt="..."
-          />
-          <div className="media-body">
-            <h5 className="mt-0">Khalil hajri</h5>
-            <p>Im looking for samsung galaxy s 9 </p>
-            <p>Prix : 100 DT</p>
-            <div class="card-footer text-muted">
-              2 days ago
-              <button type="button" className="btn btn-success">
-                Contacter
-              </button>
-            </div>
-          </div>
-        </div>
+          ))}
       </div>
       <Footer />
     </div>
